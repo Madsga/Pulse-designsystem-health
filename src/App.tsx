@@ -26,9 +26,9 @@ export function App() {
   return (
     <div className="flex min-h-screen flex-wrap items-stretch">
       <Sidebar />
-      <main className="min-w-0 flex-[999_1_560px] px-8 pt-7 pb-12">
+      <main className="min-w-0 flex-[999_1_560px] px-8 pb-12">
         <div className="@container max-w-280">
-          <PageHeader />
+          <PageHeader className="sticky top-0" />
           {state.toast && <Toast message={state.toast} onDismiss={actions.dismissToast} />}
           <View />
         </div>

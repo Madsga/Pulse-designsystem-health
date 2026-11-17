@@ -44,11 +44,6 @@ export function Sidebar() {
           );
         })}
       </div>
-
-      <div className="mt-auto border-t border-line pt-4">
-        <p className="font-medium">Sample workspace</p>
-        <p className="mt-0.5 text-meta text-muted">All figures are sample data for the prototype.</p>
-      </div>
     </nav>
   );
 }
