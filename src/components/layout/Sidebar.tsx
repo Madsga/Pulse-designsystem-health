@@ -17,7 +17,7 @@ export function Sidebar() {
   return (
     <nav
       aria-label="Main"
-      className="flex h-screen max-w-full flex-[1_1_232px] flex-col gap-6 border-r border-raised bg-deep px-4 py-5"
+      className="flex h-screen max-w-full min-[800px]:sticky min-[800px]:top-0 flex-[1_1_232px] flex-col gap-6 border-r border-raised bg-deep px-4 py-5"
     >
       <div>
         <h2 className="text-[22px]">Pulse</h2>

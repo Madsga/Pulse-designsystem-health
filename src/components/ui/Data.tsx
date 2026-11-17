@@ -88,7 +88,7 @@ export function TableRow({ columns, className, style, children }: { columns: str
 
 export function HeaderCell({ children }: { children: ReactNode }) {
   return (
-    <div role="columnheader" className="border-b border-line px-4 py-2.5 text-micro font-medium text-muted">
+    <div role="columnheader" className="border-b border-line px-4 py-2.5 text-micro font-medium text-muted first:pl-0">
       {children}
     </div>
   );
@@ -96,7 +96,7 @@ export function HeaderCell({ children }: { children: ReactNode }) {
 
 export function Cell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div role="cell" className={cn('flex min-w-0 items-center border-b border-raised px-4 py-3', className)}>
+    <div role="cell" className={cn('flex min-w-0 items-center border-b border-raised px-4 py-3 first:pl-0', className)}>
       {children}
     </div>
   );

@@ -98,15 +98,6 @@
   );
 }
 
-/* Hatching over treemap tiles that have open drift. */
-@utility bg-drift-hatch {
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgb(125 211 252 / 0.16) 0 2px,
-    transparent 2px 8px
-  );
-}
-
 /* Dashed outline marking what differs in a sample. */
 @utility sample-diff {
   outline: 2px dashed var(--color-sample-diff);

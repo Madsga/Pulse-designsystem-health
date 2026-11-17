@@ -5,8 +5,18 @@ interface CardProps extends HTMLAttributes<HTMLElement> {
   as?: 'section' | 'div';
 }
 
+/** A bordered panel. Kept for the one working surface on a screen, not for every group. */
 export function Card({ as: Tag = 'section', className, ...props }: CardProps) {
   return <Tag className={cn('rounded border border-line bg-surface', className)} {...props} />;
+}
+
+/** The sentence each screen opens with: its main answer, stated plainly. */
+export function Lead({ id, children, className }: { id?: string; children: ReactNode; className?: string }) {
+  return (
+    <h2 id={id} className={cn('max-w-[24em] text-[26px] leading-[1.2] text-balance @3xl:text-[30px]', className)}>
+      {children}
+    </h2>
+  );
 }
 
 interface SectionHeadingProps {
@@ -23,46 +33,22 @@ export function SectionHeading({ id, title, description, className }: SectionHea
       <h2 id={id} className="text-lg">
         {title}
       </h2>
-      {description && <p className="mt-1 text-muted">{description}</p>}
+      {description && <p className="mt-1 max-w-180 text-muted">{description}</p>}
     </div>
   );
 }
 
 /** A 14px semibold subsection title. */
 export function Subheading({ children, className }: { children: ReactNode; className?: string }) {
-  return <h3 className={cn('text-sm font-semibold', className)}>{children}</h3>;
+  return <h3 className={cn('text-sm font-semibold tracking-normal', className)}>{children}</h3>;
 }
 
-/** Small uppercase eyebrow label. */
-export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
-  return <h3 className={cn('text-micro font-medium tracking-[0.06em] text-muted uppercase', className)}>{children}</h3>;
-}
-
-/** A bordered row: content on the left, actions on the right, wrapping on narrow screens. */
-export function ItemRow({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div className={cn('flex flex-wrap items-center justify-between gap-3 rounded border border-line px-3.5 py-3', className)}>
-      {children}
-    </div>
-  );
-}
-
-/** A title + muted detail pair, used inside rows. */
-export function ItemText({ title, detail }: { title: ReactNode; detail?: ReactNode }) {
-  return (
-    <div className="min-w-0">
-      <p className="font-semibold">{title}</p>
-      {detail && <p className="text-meta text-muted">{detail}</p>}
-    </div>
-  );
-}
-
-/** Card shown when a list or detail pane has nothing to show. */
+/** Panel shown when a list or detail pane has nothing to show. */
 export function EmptyCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <Card as="div" className="p-6">
+    <div className="rounded border border-dashed border-line-strong p-6">
       <p className="font-semibold">{title}</p>
       <p className="mt-1 text-muted">{children}</p>
-    </Card>
+    </div>
   );
 }

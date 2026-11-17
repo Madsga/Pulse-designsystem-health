@@ -18,14 +18,6 @@ export function Button({ variant = 'secondary', className, type = 'button', ...p
   return <button type={type} className={cn(variants[variant], className)} {...props} />;
 }
 
-/** A link-styled button with a trailing arrow, used to jump to another screen. */
-export function ArrowLink({ children, ...props }: Omit<ButtonProps, 'variant'>) {
-  return (
-    <Button variant="link" {...props}>
-      {children} <span aria-hidden="true">↗</span>
-    </Button>
-  );
-}
 
 /** "Open in Figma / Storybook / code" links. */
 export function SourceLinks({ onOpen }: { onOpen: () => void }) {

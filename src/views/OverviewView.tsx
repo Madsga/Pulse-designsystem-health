@@ -1,7 +1,8 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { BlastTag } from '../components/ui/BlastTag';
 import { Button } from '../components/ui/Button';
-import { Card } from '../components/ui/Card';
+import { Card, Lead } from '../components/ui/Card';
+import { LegendItem, MARK_FILL, Swatch } from '../components/ui/Legend';
 import { BigNumber, Sparkline } from '../components/ui/Data';
 import { MAPPED_COMPONENTS, TOTAL_COMPONENTS } from '../data/workspace';
 import { cn } from '../lib/cn';
@@ -19,9 +20,9 @@ const CELL_BASE = 'h-7 rounded-[1px] origin-bottom animate-rise motion-reduce:an
 const DRIFT_HEIGHT: Record<BlastLevel, string> = { 0: 'h-7', 1: 'h-9', 2: 'h-11', 3: 'h-14' };
 
 function cellClass(c: Cell) {
-  if (c.kind === 'aligned') return cn(CELL_BASE, 'bg-accent/45');
-  if (c.kind === 'unmapped') return cn(CELL_BASE, 'border border-line-strong');
-  return cn(CELL_BASE, DRIFT_HEIGHT[c.blast], c.blast === 3 ? 'bg-danger' : 'bg-drift-tag');
+  if (c.kind === 'aligned') return cn(CELL_BASE, MARK_FILL.library);
+  if (c.kind === 'unmapped') return cn(CELL_BASE, MARK_FILL.absent);
+  return cn(CELL_BASE, DRIFT_HEIGHT[c.blast], c.blast === 3 ? MARK_FILL.severe : MARK_FILL.drift);
 }
 
 function LibraryStrip({ cells, label }: { cells: Cell[]; label: string }) {
@@ -37,10 +38,6 @@ function LibraryStrip({ cells, label }: { cells: Cell[]; label: string }) {
       ))}
     </div>
   );
-}
-
-function Swatch({ className }: { className: string }) {
-  return <span aria-hidden="true" className={cn('inline-block h-3 w-2 rounded-[1px]', className)} />;
 }
 
 /* ── The three questions, as one ruled table ── */
@@ -120,27 +117,24 @@ export function OverviewView() {
   const points = earnedPoints(m.healthInputs, m.healthScore);
 
   return (
-    <div className="@container flex flex-col gap-8">
+    <div className="flex flex-col gap-8">
       {/* Lead: the whole library at a glance */}
       <section aria-labelledby="library" className="flex flex-col gap-4">
-        <h2 id="library" className="max-w-[24em] text-[26px] leading-[1.2] text-balance @3xl:text-[30px]">
+        <Lead id="library">
           {aligned} of {TOTAL_COMPONENTS} components match across Figma, Storybook and code.
-        </h2>
+        </Lead>
         <LibraryStrip
           cells={cells}
           label={`${aligned} components aligned, ${unmapped} not mapped in all three sources, ${drifting} with open drift.`}
         />
         <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
-          <span className="inline-flex min-h-11 items-center gap-2">
-            <Swatch className="bg-accent/45" />
-            {aligned} aligned
-          </span>
+          <LegendItem mark="library">{aligned} aligned</LegendItem>
           <Button variant="link" className="inline-flex items-center gap-2" onClick={() => actions.navigate('components')}>
-            <Swatch className="border border-line-strong" />
+            <Swatch mark="absent" />
             {unmapped} not in all three sources
           </Button>
           <Button variant="link" className="inline-flex items-center gap-2" onClick={() => actions.navigate('drift')}>
-            <Swatch className="bg-drift-tag" />
+            <Swatch mark="drift" />
             {drifting} with open drift, taller where it reaches further
           </Button>
         </div>
