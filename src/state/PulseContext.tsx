@@ -112,6 +112,8 @@ function usePulseStore() {
       setComponentFilter: (componentFilter: ComponentFilter) => set({ componentFilter }),
       setComponentMode: (componentMode: ComponentMode) => set({ componentMode }),
       selectComponent: (name: string) => set({ selectedComponent: name }),
+      openComponent: (name: string) =>
+        set({ screen: 'components', selectedComponent: name, componentFilter: 'all', toast: '' }),
       toggleComponent: (name: string) =>
         set((s) => ({ selectedComponent: s.selectedComponent === name ? null : name })),
 
