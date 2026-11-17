@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Type scale additions (Tailwind's text-sm is the 14px body size) */
+  --text-meta: 13px;
+  --text-micro: 12.5px;
+
+  /* App palette (navy) */
+  --color-canvas: #0f1b2d;
+  --color-deep: #0b1524;
+  --color-surface: #12213a;
+  --color-raised: #1b2c47;
+  --color-raised-hover: #23385a;
+  --color-line: #2e4468;
+  --color-line-strong: #3e5a86;
+  --color-control: #5b7399;
+  --color-hatch: #2a4066;
+  --color-fg: #e6edf7;
+  --color-muted: #9fb3cf;
+  --color-accent: #7dd3fc;
+  --color-accent-hover: #a5e4ff;
+  --color-danger: #ff8a80;
+  --color-warning-bg: #1f1a0c;
+  --color-drift-tag: #ffd2a8;
+
+  /* Diff lines */
+  --color-removed-bg: #3a1f2b;
+  --color-removed-fg: #ffb4ae;
+  --color-added-bg: #17382f;
+  --color-added-fg: #9fe8c4;
+  --color-changed-fg: #c9d8ee;
+
+  /* Light palette used by the illustrative sample components */
+  --color-sample-stage: #f7f7f5;
+  --color-sample-ink: #1a1a1a;
+  --color-sample-muted: #5a5a55;
+  --color-sample-border: #bdbdb5;
+  --color-sample-field: #8f8f88;
+  --color-sample-line: #d8d8d2;
+  --color-sample-row: #ecece7;
+  --color-sample-head: #efefea;
+  --color-sample-blue: #2563eb;
+  --color-sample-red: #b42318;
+  --color-sample-green: #16a34a;
+  --color-sample-diff: #b45309;
+  --color-sample-tag: #92400e;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-sm text-fg;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-medium;
+    letter-spacing: -0.03em;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    @apply text-accent hover:text-accent-hover;
+  }
+
+  :where(button, a, input):focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+/* Diagonal hatching behind meter bars: the empty part of the track. */
+@utility bg-hatched {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--color-hatch) 0 3px,
+    var(--color-surface) 3px 6px
+  );
+}
+
+/* Hatching over treemap tiles that have open drift. */
+@utility bg-drift-hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(125 211 252 / 0.16) 0 2px,
+    transparent 2px 8px
+  );
+}
+
+/* Dashed outline marking what differs in a sample. */
+@utility sample-diff {
+  outline: 2px dashed var(--color-sample-diff);
+  outline-offset: 3px;
+}
